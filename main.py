@@ -1,13 +1,16 @@
 from fastapi import FastAPI
+from typing import Optional
 
 
 app = FastAPI()
 
-@app.get("/")
-
-def index():
+@app.get("/blog")
+def index(limit=10, published: bool=True, sort: Optional[str]=None):
     #return {'data': {'name': 'Dilobar'}}
-    return {'data': 'blog list'}
+    if published:
+        return {'data': f'{limit} blogs lists'}
+    else:
+        return {'data': f'{limit} lists'}
 
 @app.get("/blog/unpublished")
 def unpublished():
@@ -18,7 +21,7 @@ def show(id: int): #int is converting id to the integer. In case we want string 
     return {'data': id}
 
 
-@app.get("/blog/{id}/comments")
-def comments(id):
+@app.get("/blog/{id}/comments")  #there is anything given in the path and that is accepted here so this this could be the path parameter otherwise you are talking about obviously the query parameter 
+def comments(id, limit=10):
     #fetch comments of blog with id = id
     return {'data': {'1', '2'}}
