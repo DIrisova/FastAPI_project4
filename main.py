@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-
+import uvicorn
 
 app = FastAPI()
 
@@ -35,12 +35,15 @@ class Blog(BaseModel):
     published_at: Optional[bool]
 
 
-@app.post('/blog')
+@app.post('/blogs')
 def create_blog(request: Blog):
     return {'data': f'success 200 yahoo title as {request.title}'}
 
 
+#for running app on the different host and dont forget impoert uvicorn and for running it simply run python main.py
 
+# if __name__ == "__main__":
+#     uvicorn.run(app,host="127.0.0.1", port=9000)
 
 
 
